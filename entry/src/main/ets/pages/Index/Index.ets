@@ -1,5 +1,5 @@
-import { Message } from '../components/Message'
-import { TabBarClass } from '../viewmodels'
+import { Message } from '../../components/Message'
+import { TabBarClass } from '../../viewmodels'
 
 @Entry
 @Component

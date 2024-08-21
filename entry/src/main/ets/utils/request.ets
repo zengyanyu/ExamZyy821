@@ -6,6 +6,7 @@ import { BASE_URL, TOKEN_KEY } from '../constants' // 基础地址
 import http from '@ohos.net.http' // 原生
 import { ResponseData } from '../viewmodels'
 import { promptAction, router } from '@kit.ArkUI'
+import { UserSettingClass } from '.'
 
 
 // 基本的请求工具 对http的进一步封装
@@ -38,15 +39,11 @@ async function requestHttp<T>(url: string, method: http.RequestMethod = http.Req
     // 还有一些异常
     // 401 404 包括一些其他异常
     if (res.responseCode === 401) {
-      // token失效 -> token没有存在的意义- 自己的登录-接口没有换token这个操作
-      // web登录- token（2小时）- refreshToken(半个月或者更长)
-      // 华为登录- 180天有效期 不需要用户自己换token- 后台自己完成的
-      // 删除token
-      //new UserSettingClass(getContext()).setToken("") // 清空首选项
-      // AppStorage.setOrCreate(TOKEN_KEY, "") // 设置全局的token为空
-      // router.replaceUrl({
-      //   url: 'pages/Login/Login' // 跳转到登录页
-      // })
+      new UserSettingClass(getContext()).setToken("") // 清空首选项
+      AppStorage.setOrCreate(TOKEN_KEY, "") // 设置全局的token为空
+      router.replaceUrl({
+        url: 'pages/Login/Login' // 跳转到登录页
+      })
       return Promise.reject(new Error("登录失效"))
     } else if (res.responseCode === 404) {
       // 删除token

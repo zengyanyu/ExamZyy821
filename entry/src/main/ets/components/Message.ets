@@ -4,6 +4,7 @@ import { TaskMessage } from './TaskMessage'
 
 @Component
 export struct Message {
+
   @State
   tabList: TabBarClass[] = [
     {
