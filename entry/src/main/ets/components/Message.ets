@@ -4,7 +4,6 @@ import { TaskMessage } from './TaskMessage'
 
 @Component
 export struct Message {
-
   @State
   tabList: TabBarClass[] = [
     {
@@ -32,7 +31,7 @@ export struct Message {
         .border({
           color: Color.Red,
           width: {
-            bottom: this.tabList[this.activeIndex].name === item.name ? 5 : 0
+            bottom: this.tabList[this.activeIndex].name === item.name ? 2 : 0
           }
         })
     }

@@ -9,7 +9,6 @@ import {
   MessageResponseModel
 } from '../viewmodels'
 import { HmCard } from './HmCard';
-import { HmCardItem } from './HmCardItem';
 
 @Component
 export struct TaskMessage {
@@ -59,16 +58,12 @@ export struct TaskMessage {
 
 
       // 内容
-      HmCard({
-        HmCardFn: () => {
-          this.getContent();
-        }
-      })
-
-      HmCard({
-        HmCardFn: () => {
-          this.getContent();
-        }
+      ForEach([1, 2], () => {
+        HmCard({
+          HmCardFn: () => {
+            this.getContent();
+          }
+        })
       })
     }
     .backgroundColor('rgb(245, 245, 245)')
@@ -79,12 +74,18 @@ export struct TaskMessage {
   @Builder
   getContent() {
     Column({ space: 20 }) {
-      Text('您有新的运输任务')
-        .width('100%')
-        .fontSize(18)
-        .margin({
-          top: 14
-        })
+      Row({ space: 2 }) {
+        Text('您有新的运输任务')
+          .fontSize(18)
+
+        Image($r('app.media.red'))
+          .width(30)
+          .aspectRatio(1)
+      }.margin({
+        top: 14
+      })
+      .width('100%')
+      .justifyContent(FlexAlign.Start)
 
       Row() {
       }
@@ -97,10 +98,10 @@ export struct TaskMessage {
       })
 
       Row() {
-        Text('运输车辆')
+        Text('运输车辆:京A 123456')
           .fontColor(Color.Gray)
           .layoutWeight(1)
-        Text('运输路线')
+        Text('运输路线: 北京--广州')
           .fontColor(Color.Gray)
           .maxLines(1)
           .textOverflow({

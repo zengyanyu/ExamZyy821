@@ -29,11 +29,20 @@ struct Index {
   @Builder
   myTabBar(item: TabBarClass) {
     Column({ space: 4 }) {
-      Image(this.tabList[this.activeIndex].name === item.name ? item.selectIcon : item.icon)
-        .width(20)
-        .height(20)
-        .fillColor(this.tabList[this.activeIndex].name === item.name ? Color.Red :
-        $r('app.color.text_primary'))
+      Stack() {
+        Image(this.tabList[this.activeIndex].name === item.name ? item.selectIcon : item.icon)
+          .width(20)
+          .height(20)
+          .fillColor(this.tabList[this.activeIndex].name === item.name ? Color.Red :
+          $r('app.color.text_primary'))
+        // 信息提示图标
+        if (this.tabList[this.activeIndex].name === item.name) {
+          Image($r('app.media.red'))
+            .width(30)
+            .aspectRatio(1)
+        }
+      }
+
       Text(item.title)
         .fontSize(12)
         .fontColor(this.tabList[this.activeIndex].name === item.name ? Color.Red :
