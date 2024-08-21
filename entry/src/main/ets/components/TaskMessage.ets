@@ -13,12 +13,27 @@ import { HmCard } from './HmCard';
 @Component
 export struct TaskMessage {
   @State
+  @Watch('updateStatus')
   items: MessageDataItem[] = []
+  @Provide
+  status: boolean = false;
   model: MessageQueryParamModelModel = new MessageQueryParamModelModel({
     contentType: 201,
     page: 1,
     pageSize: 10
   } as MessageQueryParamModel)
+
+  updateStatus() {
+    let updateStatus = false;
+    for (let index = 0; index < this.items.length; index++) {
+      if (this.items[index].isRead === 0) {
+        updateStatus = true;
+      }
+    }
+    if (updateStatus) {
+      this.status = true;
+    }
+  }
 
   aboutToAppear(): void {
     // 调用任务通知

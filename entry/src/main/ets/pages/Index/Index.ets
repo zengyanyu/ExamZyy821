@@ -4,6 +4,8 @@ import { TabBarClass } from '../../viewmodels'
 @Entry
 @Component
 struct Index {
+  @Consume
+  status: boolean;
   @State
   tabList: TabBarClass[] = [
     {
@@ -36,7 +38,7 @@ struct Index {
           .fillColor(this.tabList[this.activeIndex].name === item.name ? Color.Red :
           $r('app.color.text_primary'))
         // 信息提示图标
-        if (this.tabList[this.activeIndex].name === item.name) {
+        if (this.status) {
           Image($r('app.media.red'))
             .width(30)
             .aspectRatio(1)
